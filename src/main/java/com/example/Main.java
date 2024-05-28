@@ -11,13 +11,20 @@ import com.example.apis.protos.APIs;
 public class Main {
     public static void main(String[] args) {
         try {
-            API.Builder apiBuilder = API.newBuilder();
+            API.Builder apiBuilder1 = API.newBuilder();
             APIs.Builder apisBuilder = APIs.newBuilder();
-            apiBuilder.setId("abc001");
-            apiBuilder.setName("API1");
-            apiBuilder.setDescription("functionality test");
-            apiBuilder.setVersion(1);
-            apisBuilder.addApis(apiBuilder.build());
+            apiBuilder1.setId("abc001");
+            apiBuilder1.setName("API1");
+            apiBuilder1.setDescription("functionality test");
+            apiBuilder1.setVersion(1);
+            apisBuilder.addApis(apiBuilder1.build());
+
+            API.Builder apiBuilder2 = API.newBuilder();
+            apiBuilder2.setId("abc002");
+            apiBuilder2.setName("API2");
+            apiBuilder2.setDescription("functionality test 2");
+            apiBuilder2.setVersion(2);
+            apisBuilder.addApis(apiBuilder2.build());
 
             APIs apisMessage = apisBuilder.build();
             byte[] bytes = apisMessage.toByteArray();
