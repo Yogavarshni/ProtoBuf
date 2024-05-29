@@ -33,10 +33,8 @@ jobs:
         protoc --java_out="src/main/java/com/example/compile_try" src/main/java/com/example/apimodel.proto
     - name: List contents of the directory
       run: ls -la src/main/java/com/example/
-    - name: List contents of the directory-1
-      run: ls -la src/main/java/com/example/compile_try/com
-    # - name: Displaying java files
-    #   run: cat src/main/java/com/example/compile_try/com/example/apis/protos/*.java
+    - name: Displaying java files
+      run: cat src/main/java/com/example/compile_try/com/example/apis/protos/*.java
     - name: Run java file
       run: |
         mvn dependency:build-classpath -Dmdep.outputFile=classpath.txt
