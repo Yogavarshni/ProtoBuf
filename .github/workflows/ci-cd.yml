@@ -33,11 +33,11 @@ jobs:
         protoc --java_out="src/main/java/com/example/compile_try" src/main/java/com/example/apimodel.proto
     - name: Add changes to Git
       run: |
-          git config --global user.email "actions@github.com"
-          git config --global user.name "GitHub Actions"
-          git add src/main/java/com/example/compile_try
-          git diff --quiet && git diff --staged --quiet || git commit -m "Add compile_try directory"
-          git push
+        git config --global user.email "actions@github.com"
+        git config --global user.name "GitHub Actions"
+        git add src/main/java/com/example/compile_try
+        git diff --quiet && git diff --staged --quiet || git commit -m "Add compile_try directory"
+        git push https://github.com/Yogavarshni/ProtoBuf.git HEAD:main
     - name: List contents of the directory
       run: ls -la src/main/java/com/example/
 
