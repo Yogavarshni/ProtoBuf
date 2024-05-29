@@ -29,6 +29,6 @@ jobs:
         protoc --version
     - name: Compile the proto file
       run: |
-        mkdir compile_try
-        protoc --java_out="compile_try" src/main/java/com/example/apimodel.proto
+        mkdir src/main/java/com/example/compile_try
+        protoc --java_out="src/main/java/com/example/compile_try" src/main/java/com/example/apimodel.proto
 
