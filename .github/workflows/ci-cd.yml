@@ -34,7 +34,7 @@ jobs:
     - name: List contents of the directory
       run: ls -la src/main/java/com/example/
     - name: Displaying java files
-      run: cat src/main/java/com/example/compile_try/com/example.apis/protos/*.java
+      run: cat src/main/java/com/example/compile_try/com/example/apis/protos/*.java
     - name: Run java file
       run: |
         mvn dependency:build-classpath -Dmdep.outputFile=classpath.txt
