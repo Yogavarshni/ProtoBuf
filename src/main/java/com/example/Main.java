@@ -5,8 +5,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Arrays;
 
-import com.example.apis.protos.API;
-import com.example.apis.protos.APIs;
+import src.main.java.com.example.apis.protos.API;
+import src.main.java.com.example.apis.protos.APIs;
 
 public class Main {
     public static void main(String[] args) {
