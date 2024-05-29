@@ -31,5 +31,8 @@ jobs:
       run: |
         mkdir -p src/main/java/com/example/compile_try
         protoc --java_out="src/main/java/com/example/compile_try" src/main/java/com/example/apimodel.proto
+    - name: List contents of the directory
+      run: ls -la src/main/java/com/example/
+
 
 
