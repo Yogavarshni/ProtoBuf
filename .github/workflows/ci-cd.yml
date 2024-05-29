@@ -33,10 +33,6 @@ jobs:
         protoc --java_out="src/main/java/com/example/compile_try" src/main/java/com/example/apimodel.proto
     - name: List contents of the directory
       run: ls -la src/main/java/com/example/
-    - name: Compile the Java file
-      run: javac -d out -cp src/main/java/com/example/apis/protos src/main/java/com/example/Main.java
-    - name: Run the Java file
-      run: java -cp out com.example.Main
 
 
 
