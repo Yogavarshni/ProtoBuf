@@ -34,7 +34,8 @@ jobs:
     - name: List contents of the directory
       run: ls -la src/main/java/com/example/
     - name: Run java file
-      run: java -cp target/classes com.example.Main
+      run: java -cp target/classes:~/.m2/repository/com/google/protobuf/protobuf-java/4.26.1/protobuf-java-4.26.1.jar com.example.Main
+
 
 
 
