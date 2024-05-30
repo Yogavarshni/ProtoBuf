@@ -31,7 +31,14 @@ jobs:
           
       - name: List contents of the directory
         run: ls -la src/main/java/com/example/
-        
+
+      - name: Find proto file and set environment variable
+        id: set_proto_name
+        run: |
+          PROTO_FILE=$(find src/main/java/com/example -name "*.proto" | head -n 1)
+          PROTO_NAME=$(basename "$PROTO_FILE" .proto)
+          echo "PROTO_NAME=$PROTO_NAME" >> $GITHUB_ENV
+          
       - name: Compile the proto file
         run: |
           mkdir -p src/main/java/com/example/compile_try
@@ -45,10 +52,6 @@ jobs:
         
       - name: Add Protobuf dependency to pom.xml
         run: sed -i '/<\/dependencies>/i \ \ \ \ <dependency>\n\ \ \ \ \ \ <groupId>com.google.protobuf<\/groupId>\n\ \ \ \ \ \ <artifactId>protobuf-java<\/artifactId>\n\ \ \ \ \ \ <version>3.17.3<\/version>\n\ \ \ \ <\/dependency>' pom.xml
-        
-      - name: Get proto file name
-        id: get_proto_name
-        run: echo "PROTO_NAME=$(basename src/main/java/com/example .proto)" >> $GITHUB_ENV
         
       - name: Create JAR file with proto name
         run: mvn package -Dmaven.build.finalName=${{ env.PROTO_NAME }}
