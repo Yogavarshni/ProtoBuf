@@ -23,6 +23,7 @@ jobs:
           cache: maven
       - name: Install protobuf
         run: |
+          sudo apt update
           sudo apt install -y protobuf-compiler
           protoc --version
       - name: List contents of the directory
@@ -31,6 +32,9 @@ jobs:
         run: |
           mkdir -p src/main/java/com/example/compile_try
           protoc --java_out="src/main/java/com/example/compile_try" src/main/java/com/example/apimodel.proto
+      - name: Add Protobuf dependency to pom.xml
+        run: |
+          echo '<dependencies><dependency><groupId>com.google.protobuf</groupId><artifactId>protobuf-java</artifactId><version>4.26.1</version></dependency></dependencies>' >> pom.xml
       - name: Compile Java files
         run: |
           mvn clean compile
