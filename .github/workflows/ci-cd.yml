@@ -40,7 +40,7 @@ jobs:
         run: sed -i '/<\/dependencies>/i \ \ \ \ <dependency>\n\ \ \ \ \ \ <groupId>com.google.protobuf<\/groupId>\n\ \ \ \ \ \ <artifactId>protobuf-java<\/artifactId>\n\ \ \ \ \ \ <version>3.17.3<\/version>\n\ \ \ \ <\/dependency>' pom.xml
       - name: Compile Java files
         run: mvn clean compile
-      - name: Create JAR file
-        run: mvn package
+      - name: Create JAR file with custom name
+        run: mvn package -Dmaven.build.finalName=my-jar-custome-name
       - name: List contents of the target directory
         run: ls -la target
