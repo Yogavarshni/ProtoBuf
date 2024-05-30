@@ -41,6 +41,6 @@ jobs:
       - name: Compile Java files
         run: mvn clean compile
       - name: Create JAR file with custom name
-        run: mvn package -Dmaven.build.finalName=my-jar-custome-name
+        run: mvn package -Dmaven.build.finalName=my-custom-name
       - name: List contents of the target directory
         run: ls -la target
