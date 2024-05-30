@@ -48,7 +48,7 @@ jobs:
         
       - name: Get proto file name
         id: get_proto_name
-        run: echo "PROTO_NAME=$(basename src/main/java/com/example/apimodel.proto .proto)" >> $GITHUB_ENV
+        run: echo "PROTO_NAME=$(basename src/main/java/com/example .proto)" >> $GITHUB_ENV
         
       - name: Create JAR file with proto name
         run: mvn package -Dmaven.build.finalName=${{ env.PROTO_NAME }}
