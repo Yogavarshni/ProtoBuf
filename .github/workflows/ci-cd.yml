@@ -50,13 +50,14 @@ jobs:
       - name: Display generated Java files
         run: cat /home/runner/work/ProtoBuf/ProtoBuf/src/main/java/com/example/compile_try/files/*.java
         
-      - name: Add Protobuf dependency to pom.xml
-        run: sed -i '/<\/dependencies>/i \ \ \ \ <dependency>\n\ \ \ \ \ \ <groupId>com.google.protobuf<\/groupId>\n\ \ \ \ \ \ <artifactId>protobuf-java<\/artifactId>\n\ \ \ \ \ \ <version>3.17.3<\/version>\n\ \ \ \ <\/dependency>' pom.xml
-        
+      - name: Download Protobuf Java library
+        run: |
+          wget https://repo1.maven.org/maven2/com/google/protobuf/protobuf-java/3.17.3/protobuf-java-3.17.3.jar -P lib
+          
       - name: Compile Java files
         run: |
           mkdir -p out
-          javac -d out src/main/java/com/example/compile_try/files/*.java
+          javac -cp lib/protobuf-java-3.17.3.jar -d out src/main/java/com/example/compile_try/files/*.java
           
       - name: Create JAR file with proto name
         run: |
