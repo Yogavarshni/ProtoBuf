@@ -32,10 +32,12 @@ jobs:
           mkdir -p src/main/java/com/example/compile_try
           protoc --java_out="src/main/java/com/example/compile_try" src/main/java/com/example/apimodel.proto
       - name: Compile Java files
-        working-directory: src/main/java/com/example
-        run: mvn clean compile
+        run: |
+          cd $GITHUB_WORKSPACE  
+          mvn clean compile
       - name: Create JAR file
-        working-directory: src/main/java/com/example
-        run: mvn package
+        run: |
+          cd $GITHUB_WORKSPACE  
+          mvn package
       - name: List contents of the target directory
         run: ls -la target
