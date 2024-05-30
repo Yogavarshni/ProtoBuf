@@ -46,15 +46,12 @@ jobs:
       - name: Add Protobuf dependency to pom.xml
         run: sed -i '/<\/dependencies>/i \ \ \ \ <dependency>\n\ \ \ \ \ \ <groupId>com.google.protobuf<\/groupId>\n\ \ \ \ \ \ <artifactId>protobuf-java<\/artifactId>\n\ \ \ \ \ \ <version>3.17.3<\/version>\n\ \ \ \ <\/dependency>' pom.xml
         
-      - name: Compile Java files
-        run: mvn clean compile
-        
       - name: Get proto file name
         id: get_proto_name
-        run: echo "::set-output name=name::$(basename src/main/java/com/example/apimodel.proto .proto)"
+        run: echo "PROTO_NAME=$(basename src/main/java/com/example/apimodel.proto .proto)" >> $GITHUB_ENV
         
       - name: Create JAR file with proto name
-        run: mvn package -Dmaven.build.finalName=${{ steps.get_proto_name.outputs.name }}
+        run: mvn package -Dmaven.build.finalName=${{ env.PROTO_NAME }}
 
       - name: List contents of the target directory
         run: ls -la target
