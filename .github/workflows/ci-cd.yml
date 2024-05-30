@@ -37,7 +37,7 @@ jobs:
       - name: Display generated Java files
         run: cat /home/runner/work/ProtoBuf/ProtoBuf/src/main/java/com/example/compile_try/files/*.java
       - name: Add Protobuf dependency to pom.xml
-        run: sed -i '/<\/dependencies>/i \ \ \ \ <dependency>\n\ \ \ \ \ \ <groupId>com.google.protobuf<\/groupId>\n\ \ \ \ \ \ <artifactId>protobuf-java<\/artifactId>\n\ \ \ \ \ \ <version>4.26.1<\/version>\n\ \ \ \ <\/dependency>' pom.xml
+        run: sed -i '/<\/dependencies>/i \ \ \ \ <dependency>\n\ \ \ \ \ \ <groupId>com.google.protobuf<\/groupId>\n\ \ \ \ \ \ <artifactId>protobuf-java<\/artifactId>\n\ \ \ \ \ \ <version>3.17.3<\/version>\n\ \ \ \ <\/dependency>' pom.xml
       - name: Compile Java files
         run: mvn clean compile
       - name: Create JAR file
