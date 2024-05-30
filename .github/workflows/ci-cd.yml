@@ -53,8 +53,14 @@ jobs:
       - name: Add Protobuf dependency to pom.xml
         run: sed -i '/<\/dependencies>/i \ \ \ \ <dependency>\n\ \ \ \ \ \ <groupId>com.google.protobuf<\/groupId>\n\ \ \ \ \ \ <artifactId>protobuf-java<\/artifactId>\n\ \ \ \ \ \ <version>3.17.3<\/version>\n\ \ \ \ <\/dependency>' pom.xml
         
+      - name: Compile Java files
+        run: |
+          mkdir -p out
+          javac -d out src/main/java/com/example/compile_try/files/*.java
+          
       - name: Create JAR file with proto name
-        run: mvn package -Dmaven.build.finalName=${{ env.PROTO_NAME }}
-
+        run: |
+          jar cvf target/${{ env.PROTO_NAME }}.jar -C out .
+          
       - name: List contents of the target directory
         run: ls -la target
