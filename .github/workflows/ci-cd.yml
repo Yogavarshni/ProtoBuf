@@ -35,10 +35,11 @@ jobs:
       run: ls -la src/main/java/com/example/
     - name: Displaying java files
       run: cat src/main/java/com/example/compile_try/com/example/apis/protos/*.java
-    - name: Run java file
+    - name: Jar file generation
       run: |
-        mvn dependency:build-classpath -Dmdep.outputFile=classpath.txt
-        java -cp "target/classes:$(cat classpath.txt)" com.example.Main
+        mvn clean compile
+        mvn package
+        ls target
 
 
 
