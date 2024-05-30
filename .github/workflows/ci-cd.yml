@@ -34,7 +34,7 @@ jobs:
           protoc --java_out="src/main/java/com/example/compile_try" src/main/java/com/example/apimodel.proto
       - name: Add Protobuf dependency to pom.xml
         run: |
-          echo '<dependencies><dependency><groupId>com.google.protobuf</groupId><artifactId>protobuf-java</artifactId><version>4.26.1</version></dependency></dependencies>' >> pom.xml
+          sed -i '/<\/dependencies>/i \ \ \ \ <dependency>\n\ \ \ \ \ \ <groupId>com.google.protobuf<\/groupId>\n\ \ \ \ \ \ <artifactId>protobuf-java<\/artifactId>\n\ \ \ \ \ \ <version>3.17.3<\/version>\n\ \ \ \ <\/dependency>' pom.xml
       - name: Compile Java files
         run: |
           mvn clean compile
