@@ -61,6 +61,7 @@ jobs:
           
       - name: Create JAR file with proto name
         run: |
+          mkdir -p target
           jar cvf target/${{ env.PROTO_NAME }}.jar -C out .
           
       - name: List contents of the target directory
