@@ -22,6 +22,22 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
           
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+          registry-url: 'https://registry.npmjs.org'
+      
+      - name: Install dependencies
+        run: npm install
+        
+      - name: Initialize npm package
+        run: |
+          mkdir -p ts_target
+          cd ts_target
+          npm init -y
+          cd ..
+          
       - name: Install protobuf
         run: |
           sudo apt update
@@ -41,17 +57,25 @@ jobs:
       - name: Compile the proto file
         run: |
           mkdir -p src/main/java/com/example/compile_try
+          mkdir -p src/main/java/com/example/ts_files
           protoc --java_out="src/main/java/com/example/compile_try" src/main/java/com/example/apimodel.proto
-          
+          protoc --plugin="protoc-gen-ts=/jome/ydh/node_modules/.bin/protoc-gen-ts" --ts_opt=esModuleInterop=true --experimental_allow_proto3_optional --ts_out="src/main/java/com/example/ts_files" src/main/java/com/example/apimodel.proto
       - name: List generated java fils
         run: ls /home/runner/work/ProtoBuf/ProtoBuf/src/main/java/com/example/compile_try/files
         
+      - name: List generated TypeScript fils
+        run: ls /home/runner/work/ProtoBuf/ProtoBuf/src/main/java/com/example/ts_files/files
+        
       - name: Display generated Java files
         run: cat /home/runner/work/ProtoBuf/ProtoBuf/src/main/java/com/example/compile_try/files/*.java
+       
+      - name: Display generated Typescript files
+        run: cat /home/runner/work/ProtoBuf/ProtoBuf/src/main/java/com/example/ts_files/files/*.ts
         
-      - name: Download Protobuf Java library
+      - name: Download Protobuf Java ad TypeScript library
         run: |
           wget https://repo1.maven.org/maven2/com/google/protobuf/protobuf-java/3.17.3/protobuf-java-3.17.3.jar -P lib
+          npm install google-protobuf@latest
           
       - name: Compile Java files
         run: |
@@ -62,6 +86,27 @@ jobs:
         run: |
           mkdir -p target
           jar cvf target/${{ env.PROTO_NAME }}.jar -C out .
+
+      - name: Package TypeScript files as NPM package
+        run: |
+          cp -r com/webmethods/studio/protobuffs/v1/ts_files ts_target/
+          cd ts_target
+          npm init -y
+          npm install google-protobuf@latest
+          npm pack
           
       - name: List contents of the target directory
         run: ls -la target
+        
+      - name: Upload TypeScript Artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: protofiles_ts
+          path: ts_target/*.tgz
+
+      - name: Publish TypeScript package to npm
+        run: |
+          cd ts_target
+          npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
