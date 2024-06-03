@@ -59,7 +59,7 @@ jobs:
           mkdir -p src/main/java/com/example/compile_try
           mkdir -p src/main/java/com/example/ts_files
           protoc --java_out="src/main/java/com/example/compile_try" src/main/java/com/example/apimodel.proto
-          protoc --plugin="protoc-gen-ts=/home/ydh/node_modules/.bin/protoc-gen-ts" --ts_opt=esModuleInterop=true --experimental_allow_proto3_optional --ts_out="src/main/java/com/example/ts_files" src/main/java/com/example/apimodel.proto
+          protoc --plugin="protoc-gen-ts=/node_modules/.bin/protoc-gen-ts" --ts_opt=esModuleInterop=true --experimental_allow_proto3_optional --ts_out="src/main/java/com/example/ts_files" src/main/java/com/example/apimodel.proto
       - name: List generated java fils
         run: ls /home/runner/work/ProtoBuf/ProtoBuf/src/main/java/com/example/compile_try/files
         
